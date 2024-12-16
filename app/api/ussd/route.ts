@@ -40,15 +40,18 @@ export async function POST(request: NextRequest) {
     const bodyText = await request.text();
     const params = new URLSearchParams(bodyText);
 
-    const { sessionId, text, phoneNumber } = Object.fromEntries(params);
+    const sessionId = params.get("sessionId")!;
+    const text = params.get("text")!;
+    const phoneNumber = params.get("phoneNumber")!;
 
     const userInput = text.split("*").pop();
 
     let response = "";
 
-    let currentSession = sessionData[sessionId] || {};
-
-    if (!currentSession) currentSession = { state: State.START, userData: {} };
+    if (!sessionData[sessionId]) {
+      sessionData[sessionId] = { state: State.START, userData: {} };
+    }
+    const currentSession = sessionData[sessionId];
 
     const userData = currentSession.userData;
 
@@ -59,7 +62,7 @@ export async function POST(request: NextRequest) {
     };
 
     const { userExists, currentUser } = await checkUserRegistration(
-      phoneNumber
+      phoneNumber!
     );
 
     if (!userExists) {
