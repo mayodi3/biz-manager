@@ -33,7 +33,7 @@ import {
 } from "./utils/db_functions";
 import { SessionData, StockModel } from "./types";
 
-let sessionData: Record<string, SessionData> = {};
+const sessionData: Record<string, SessionData> = {};
 
 export async function POST(request: NextRequest) {
   try {
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     if (!currentSession) currentSession = { state: State.START, userData: {} };
 
-    let userData = currentSession.userData;
+    const userData = currentSession.userData;
 
     // state management
     const getState = () => currentSession.state;

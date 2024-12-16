@@ -2,7 +2,7 @@ import { SessionData, Stock, StockModel } from "../types";
 
 export function mainMenu(session: SessionData) {
   const name = session.userData!.name || "there";
-  return `CON Hi there! Let's take care of your business today:
+  return `CON Hi ${name}! Let's take care of your business today:
           1. My Profile
           2. Record Keeping
           3. Business Health Check
